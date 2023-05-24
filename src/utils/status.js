@@ -1,9 +1,5 @@
-import React from 'react'
-
-const status = () => {
-    return (
-        <div>status</div>
-    )
-}
-
-export default status
+export const STATUS = Object.freeze({
+    IDLE: 'idle',
+    ERROR: 'error',
+    LOADING: 'loading',
+})

@@ -1,8 +1,11 @@
-import React from 'react'
+import Slider from '../../components/Slider/Slider';
+import "./HomePage.scss";
 
 const HomePage = () => {
     return (
-        <div>HomePage</div>
+        <div className="home-page">
+            <Slider />
+        </div>
     )
 }
 

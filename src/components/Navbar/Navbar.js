@@ -11,7 +11,6 @@ const Navbar = () => {
     const { data: categories } = useSelector((state) => state.category);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    console.log(categories)
 
     useEffect(() => {
         dispatch(fetchCategories());
@@ -69,6 +68,7 @@ const Navbar = () => {
                                         to={`/category/${category.id}`}
                                         className="nav-link text-white"
                                         onClick={() => setIsSidebarOpen(false)}
+
                                     >
                                         {category}
                                     </Link>

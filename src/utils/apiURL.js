@@ -1,9 +1,1 @@
-import React from 'react'
-
-const apiURL = () => {
-    return (
-        <div>apiURL</div>
-    )
-}
-
-export default apiURL
+export const BASE_URL = `https://api.escuelajs.co/api/v1/`;

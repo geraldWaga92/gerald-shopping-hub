@@ -1,14 +1,25 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.scss";
-import NavLogo from '../../assets/images/navLogo.png'
+import NavLogo from "../../assets/images/navLogo.png";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCategories } from "../../store/categorySlice";
+import { getCartTotal } from "../../store/cartSlice";
 
 const Navbar = () => {
-
+    const dispatch = useDispatch();
+    const { data: categories } = useSelector((state) => state.category);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    console.log(categories)
+
+    useEffect(() => {
+        dispatch(fetchCategories());
+    }, []);
+
     return (
         <nav className="navbar">
-            <div className='navbar-content'>
+            <div className="navbar-content">
                 <div className="container">
                     <div className="navbar-top flex flex-between">
                         <Link to="/" className="navbar-brand">
@@ -17,7 +28,7 @@ const Navbar = () => {
                         </Link>
 
                         <form className="navbar-search flex">
-                            <input type="text" placeholder='Search here ...' />
+                            <input type="text" placeholder="Search here ..." />
                             <button type="submit" className="navbar-search-btn">
                                 <i className="fas fa-search"></i>
                             </button>
@@ -28,34 +39,56 @@ const Navbar = () => {
                                 <span className="btn-ico">
                                     <i className="fas fa-shopping-cart"></i>
                                 </span>
-                                <div className='btn-txt fw-5'>Cart
-                                    <span className='cart-count-value'>0</span>
+                                <div className="btn-txt fw-5">
+                                    Cart
+                                    <span className="cart-count-value">0</span>
                                 </div>
                             </Link>
                         </div>
                     </div>
                 </div>
 
-                <div className='navbar-bottom bg-regal-blue'>
-                    <div className='container flex flex-between'>
-                        <ul className={`nav-links flex ${isSidebarOpen ? 'show-nav-links' : ""}`}>
-                            <button type="button" className='navbar-hide-btn text-white' onClick={() => setIsSidebarOpen(false)}>
-                                <i className='fas fa-times'></i>
+                <div className="navbar-bottom bg-regal-blue">
+                    <div className="container flex flex-between">
+                        <ul
+                            className={`nav-links flex ${isSidebarOpen ? "show-nav-links" : ""
+                                }`}
+                        >
+                            <button
+                                type="button"
+                                className="navbar-hide-btn text-white"
+                                onClick={() => setIsSidebarOpen(false)}
+                            >
+                                <i className="fas fa-times"></i>
                             </button>
 
-                            <li><Link to='/' className="nav-link text-white" onClick={() => setIsSidebarOpen(false)}>name</Link></li>
+                            {categories.map((category) => (
 
+                                <li key={category.id}>
+                                    <Link
+                                        to={`/category/${category.id}`}
+                                        className="nav-link text-white"
+                                        onClick={() => setIsSidebarOpen(false)}
+                                    >
+                                        {category}
+                                    </Link>
+                                </li>
+                            ))}
 
                         </ul>
 
-                        <button type="button" className='navbar-show-btn text-gold' onClick={() => setIsSidebarOpen(true)}>
+                        <button
+                            type="button"
+                            className="navbar-show-btn text-gold"
+                            onClick={() => setIsSidebarOpen(true)}
+                        >
                             <i className="fas fa-bars"></i>
                         </button>
                     </div>
                 </div>
             </div>
         </nav>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;

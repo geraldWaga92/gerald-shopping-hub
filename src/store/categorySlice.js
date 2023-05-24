@@ -43,7 +43,7 @@ export const fetchCategories = () => {
     return async function fetchCategoryThunk(dispatch) {
         dispatch(setStatus(STATUS.LOADING));
         try {
-            const response = await fetch(`${BASE_URL}categories`);
+            const response = await fetch(`${BASE_URL}/categories`);
             const data = await response.json();
             dispatch(setCategories(data.slice(0, 5)));
             dispatch(setStatus(STATUS.IDLE));

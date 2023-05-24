@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import "./Navbar.scss";
+import NavLogo from '../../assets/images/navLogo.png'
 
 const Navbar = () => {
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     return (
         <nav className="navbar">
             <div className='navbar-content'>
                 <div className="container">
                     <div className="navbar-top flex flex-between">
                         <Link to="/" className="navbar-brand">
-                            <span className="text-regal-blue">Gerald Shopping</span><span className='text-gold'> Hub.</span>
+                            <img src={NavLogo} alt="Navbar logo" height="70px" />
+                            {/* <span className="text-regal-blue">Gerald Shopping</span><span className='text-gold'> Hub.</span> */}
                         </Link>
 
                         <form className="navbar-search flex">
@@ -25,7 +29,7 @@ const Navbar = () => {
                                     <i className="fas fa-shopping-cart"></i>
                                 </span>
                                 <div className='btn-txt fw-5'>Cart
-                                    <span className='cart-count-value'>total items</span>
+                                    <span className='cart-count-value'>0</span>
                                 </div>
                             </Link>
                         </div>
@@ -34,21 +38,23 @@ const Navbar = () => {
 
                 <div className='navbar-bottom bg-regal-blue'>
                     <div className='container flex flex-between'>
-                        <ul className>
-                            <button type="button" className='navbar-hide-btn text-white' >
+                        <ul className={`nav-links flex ${isSidebarOpen ? 'show-nav-links' : ""}`}>
+                            <button type="button" className='navbar-hide-btn text-white' onClick={() => setIsSidebarOpen(false)}>
                                 <i className='fas fa-times'></i>
                             </button>
 
+                            <li><Link to='/' className="nav-link text-white" onClick={() => setIsSidebarOpen(false)}>name</Link></li>
+
+
                         </ul>
 
-                        <button type="button" className='navbar-show-btn text-gold'>
+                        <button type="button" className='navbar-show-btn text-gold' onClick={() => setIsSidebarOpen(true)}>
                             <i className="fas fa-bars"></i>
                         </button>
                     </div>
                 </div>
             </div>
         </nav>
-
     )
 }
 
